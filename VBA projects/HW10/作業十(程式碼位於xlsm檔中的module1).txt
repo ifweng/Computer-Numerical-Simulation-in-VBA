@@ -1,0 +1,143 @@
+Option Explicit
+
+Sub Logical_Problem()
+Dim Log As Range
+Dim i1%, i2%, i3%, i4%, i5%, i%, k1%, k2%, k3%, k4%, k5%, D1%, D2%, D3%, D4%, D5%, P1%, P2%, P3%, P4%, P5 As Integer
+Dim S1%, S2%, S3%, S4%, S5%, C1%, C2%, C3%, C4%, C5%, N1%, N2%, N3%, N4%, N5 As Integer
+Dim allnum1!, allnum2!, allnum3!, allnum4!, allnum5!, A1!, A2!, A3!, A4!, A5!, code As Single
+Dim stTimer As Single
+stTimer = Timer
+
+
+Set Log = Range("D4:H9")
+
+ActiveSheet.Cells(4, 3).Value = "Position"
+ActiveSheet.Cells(5, 3).Value = "Nation"
+ActiveSheet.Cells(6, 3).Value = "Color"
+ActiveSheet.Cells(7, 3).Value = "Sport"
+ActiveSheet.Cells(8, 3).Value = "Animal"
+ActiveSheet.Cells(9, 3).Value = "Drink"
+
+'房子位置
+Log(1) = 1
+Log(2) = 2
+Log(3) = 3
+Log(4) = 4
+Log(5) = 5
+
+Dim arr(1 To 120) As Long
+
+For i1 = 1 To 5
+allnum1 = "12345"
+A1 = Mid(allnum1, i1, 1)
+    For i2 = 1 To 4
+    allnum2 = Mid(allnum1, 1, i1 - 1) & Mid(allnum1, i1 + 1, 5 - i1)
+    A2 = Mid(allnum2, i2, 1)
+        For i3 = 1 To 3
+        allnum3 = Mid(allnum2, 1, i2 - 1) & Mid(allnum2, i2 + 1, 4 - i2)
+        A3 = Mid(allnum3, i3, 1)
+            For i4 = 1 To 2
+            allnum4 = Mid(allnum3, 1, i3 - 1) & Mid(allnum3, i3 + 1, 3 - i3)
+            A4 = Mid(allnum4, i4, 1)
+                For i5 = 1 To 1
+                allnum5 = Mid(allnum4, 1, i4 - 1) & Mid(allnum4, i4 + 1, 2 - i4)
+                A5 = allnum5
+                i = i + 1
+                code = A1 & A2 & A3 & A4 & A5
+                arr(i) = code
+                Next i5
+            Next i4
+        Next i3
+    Next i2
+Next i1
+
+For k1 = 1 To 120
+    N1 = Mid(arr(k1), 1, 1)
+    N2 = Mid(arr(k1), 2, 1)
+    N3 = Mid(arr(k1), 3, 1)
+    N4 = Mid(arr(k1), 4, 1)
+    N5 = Mid(arr(k1), 5, 1)
+    If N4 <> 1 Then
+        GoTo F1
+    End If
+    For k2 = 1 To 120
+        S1 = Mid(arr(k2), 1, 1)
+        S2 = Mid(arr(k2), 2, 1)
+        S3 = Mid(arr(k2), 3, 1)
+        S4 = Mid(arr(k2), 4, 1)
+        S5 = Mid(arr(k2), 5, 1)
+        If N5 <> S3 Then
+            GoTo F2
+        End If
+        For k3 = 1 To 120
+            P1 = Mid(arr(k3), 1, 1)
+            P2 = Mid(arr(k3), 2, 1)
+            P3 = Mid(arr(k3), 3, 1)
+            P4 = Mid(arr(k3), 4, 1)
+            P5 = Mid(arr(k3), 5, 1)
+            If N2 <> P2 Or S2 <> P3 Or Abs(S5 - P4) <> 1 Or Abs(S1 - P5) <> 1 Then
+                GoTo F3
+            End If
+            For k4 = 1 To 120
+                C1 = Mid(arr(k4), 1, 1)
+                C2 = Mid(arr(k4), 2, 1)
+                C3 = Mid(arr(k4), 3, 1)
+                C4 = Mid(arr(k4), 4, 1)
+                C5 = Mid(arr(k4), 5, 1)
+                If N1 <> C1 Or C2 - 1 <> C3 Or C4 <> S1 Or Abs(N4 - C5) <> 1 Then
+                    GoTo F4
+                End If
+                For k5 = 1 To 120
+                    D1 = Mid(arr(k5), 1, 1)
+                    D2 = Mid(arr(k5), 2, 1)
+                    D3 = Mid(arr(k5), 3, 1)
+                    D4 = Mid(arr(k5), 4, 1)
+                    D5 = Mid(arr(k5), 5, 1)
+                    If D2 <> C2 Or S4 <> D5 Or D4 <> 3 Or D3 <> N3 Then
+                        GoTo F5
+                    Else
+                        GoTo Main
+                    End If
+F5:
+                Next
+F4:
+            Next
+F3:
+        Next
+F2:
+    Next
+F1:
+Next
+
+Main:
+    Log(N1 + 5) = "英國人"
+    Log(N2 + 5) = "美國人"
+    Log(N3 + 5) = "泰國人"
+    Log(N4 + 5) = "挪威人"
+    Log(N5 + 5) = "中國人"
+    Log(C1 + 10) = "紅色"
+    Log(C2 + 10) = "綠色"
+    Log(C3 + 10) = "白色"
+    Log(C4 + 10) = "黃色"
+    Log(C5 + 10) = "藍色"
+    Log(S1 + 15) = "羽毛球"
+    Log(S2 + 15) = "桌球"
+    Log(S3 + 15) = "手球"
+    Log(S4 + 15) = "籃球"
+    Log(S5 + 15) = "保齡球"
+    Log(P1 + 20) = "斑馬"
+    Log(P2 + 20) = "狗"
+    Log(P3 + 20) = "蝸牛"
+    Log(P4 + 20) = "狐狸"
+    Log(P5 + 20) = "羊"
+    Log(D1 + 25) = "水"
+    Log(D2 + 25) = "咖啡"
+    Log(D3 + 25) = "茶"
+    Log(D4 + 25) = "牛奶"
+    Log(D5 + 25) = "橘子汁"
+
+    
+    ActiveSheet.Cells(11, 3).Value = "程式執行時間"
+    ActiveSheet.Cells(12, 3).Value = Timer - stTimer
+
+End Sub

@@ -1,0 +1,275 @@
+Option Explicit
+Sub 蝴ふ回瞯()
+
+Dim BLK As Range
+Dim randomcell As Long
+Dim tunnel(1 To 2704) As Integer
+Dim i%, a%, p%, q%, r%, s%, count As Integer
+Dim Up%, Down%, Left%, Right As Integer
+Dim stTimer As Single
+
+ Columns("D:BC").Select
+    Selection.ColumnWidth = 0.75
+    Rows("5:56").Select
+    Selection.RowHeight = 6.5
+    Range("E6:BB55").Select
+    Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+    Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+    With Selection.Borders(xlEdgeLeft)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    With Selection.Borders(xlEdgeTop)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    With Selection.Borders(xlEdgeBottom)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    With Selection.Borders(xlEdgeRight)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    Selection.Borders(xlInsideVertical).LineStyle = xlNone
+    Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    Range("D5:BC56").Select
+    Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+    Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+    With Selection.Borders(xlEdgeLeft)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    With Selection.Borders(xlEdgeTop)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    With Selection.Borders(xlEdgeBottom)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    With Selection.Borders(xlEdgeRight)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    Range("E5:BB5").Select
+    Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+    Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+    With Selection.Borders(xlEdgeLeft)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    With Selection.Borders(xlEdgeTop)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    With Selection.Borders(xlEdgeBottom)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    With Selection.Borders(xlEdgeRight)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlMedium
+    End With
+    Selection.Borders(xlInsideVertical).LineStyle = xlNone
+    Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    Range("A1").Select
+    
+For r = 1 To 100
+stTimer = Timer
+count = 0
+For i = 1 To 2704
+    tunnel(i) = 0
+Next
+
+Set BLK = Range("D5:BC56")
+
+BLK.Interior.ColorIndex = 56
+Range("D5:D56").Interior.ColorIndex = 53
+Range("BC5:BC56").Interior.ColorIndex = 53
+Range("E56:BB56").Interior.ColorIndex = 53
+Range("E5:BB5").Interior.ColorIndex = 23
+
+Randomize
+
+Main:
+Do
+randomcell = Int(Rnd * BLK.Cells.count) + 1
+
+    If BLK.Cells(randomcell).Interior.ColorIndex <> 56 Then
+    GoTo Main
+    Else
+    BLK.Cells(randomcell).Interior.ColorIndex = xlNone
+    End If
+    
+    If BLK.Cells(randomcell - 52).Interior.ColorIndex = 23 Or BLK.Cells(randomcell + 52).Interior.ColorIndex = 23 Or BLK.Cells(randomcell + 1).Interior.ColorIndex = 23 Or BLK.Cells(randomcell - 1).Interior.ColorIndex = 23 Then
+        
+        tunnel(1) = randomcell
+        BLK.Cells(tunnel(1)).Interior.ColorIndex = 23
+        i = 1
+        Do
+            p = 0
+            a = tunnel(i)
+            BLK.Cells(tunnel(i)).Interior.ColorIndex = 23
+            Do
+            If BLK.Cells(a - 1).Interior.ColorIndex = xlNone Then
+                Left = 1
+            ElseIf BLK.Cells(a - 1).Interior.ColorIndex <> xlNone Then
+                Left = 0
+            End If
+            If BLK.Cells(a + 1).Interior.ColorIndex = xlNone Then
+                Right = 1
+            ElseIf BLK.Cells(a + 1).Interior.ColorIndex <> xlNone Then
+                Right = 0
+            End If
+            If BLK.Cells(a + 52).Interior.ColorIndex = xlNone Then
+                Down = 1
+            ElseIf BLK.Cells(a + 52).Interior.ColorIndex <> xlNone Then
+                Down = 0
+            End If
+            If BLK.Cells(a - 52).Interior.ColorIndex = xlNone Then
+                Up = 1
+            ElseIf BLK.Cells(a - 52).Interior.ColorIndex <> xlNone Then
+                Up = 0
+            End If
+        
+            If Left = 1 And Right = 0 And Down = 0 And Up = 0 Then
+                BLK.Cells(a - 1).Interior.ColorIndex = 23
+                a = a - 1
+                
+            ElseIf Left = 0 And Right = 1 And Down = 0 And Up = 0 Then
+                BLK.Cells(a + 1).Interior.ColorIndex = 23
+                a = a + 1
+                
+            ElseIf Left = 0 And Right = 0 And Down = 1 And Up = 0 Then
+                BLK.Cells(a + 52).Interior.ColorIndex = 23
+                a = a + 52
+                
+            ElseIf Left = 0 And Right = 0 And Down = 0 And Up = 1 Then
+                BLK.Cells(a - 52).Interior.ColorIndex = 23
+                a = a - 52
+                
+            ElseIf Left = 1 And Right = 1 And Down = 0 And Up = 0 Then
+                BLK.Cells(a - 1).Interior.ColorIndex = 23
+                tunnel(i + 1) = a + 1
+                i = i + 1
+                a = a - 1
+                p = 1
+            ElseIf Left = 1 And Right = 0 And Down = 1 And Up = 0 Then
+                BLK.Cells(a - 1).Interior.ColorIndex = 23
+                tunnel(i + 1) = a + 52
+                i = i + 1
+                a = a - 1
+                p = 1
+            ElseIf Left = 1 And Right = 0 And Down = 0 And Up = 1 Then
+                BLK.Cells(a - 1).Interior.ColorIndex = 23
+                tunnel(i + 1) = a - 52
+                i = i + 1
+                a = a - 1
+                p = 1
+            ElseIf Left = 0 And Right = 1 And Down = 1 And Up = 0 Then
+                BLK.Cells(a + 1).Interior.ColorIndex = 23
+                tunnel(i + 1) = a + 52
+                i = i + 1
+                a = a + 1
+                p = 1
+            ElseIf Left = 0 And Right = 1 And Down = 0 And Up = 1 Then
+                BLK.Cells(a + 1).Interior.ColorIndex = 23
+                tunnel(i + 1) = a - 52
+                i = i + 1
+                a = a + 1
+                p = 1
+            ElseIf Left = 0 And Right = 0 And Down = 1 And Up = 1 Then
+                BLK.Cells(a + 52).Interior.ColorIndex = 23
+                tunnel(i + 1) = a - 52
+                i = i + 1
+                a = a + 52
+                p = 1
+            ElseIf Left = 1 And Right = 1 And Down = 1 And Up = 0 Then
+                BLK.Cells(a - 1).Interior.ColorIndex = 23
+                tunnel(i + 1) = a + 1
+                i = i + 1
+                tunnel(i + 1) = a + 52
+                i = i + 1
+                a = a - 1
+                p = 1
+            ElseIf Left = 1 And Right = 1 And Down = 0 And Up = 1 Then
+                BLK.Cells(a - 1).Interior.ColorIndex = 23
+                tunnel(i + 1) = a + 1
+                i = i + 1
+                tunnel(i + 1) = a - 52
+                i = i + 1
+                a = a - 1
+                p = 1
+            ElseIf Left = 1 And Right = 0 And Down = 1 And Up = 1 Then
+                BLK.Cells(a - 1).Interior.ColorIndex = 23
+                tunnel(i + 1) = a + 52
+                i = i + 1
+                tunnel(i + 1) = a - 52
+                i = i + 1
+                a = a - 1
+                p = 1
+            ElseIf Left = 0 And Right = 1 And Down = 1 And Up = 1 Then
+                BLK.Cells(a + 1).Interior.ColorIndex = 23
+                tunnel(i + 1) = a + 52
+                i = i + 1
+                tunnel(i + 1) = a - 52
+                i = i + 1
+                a = a + 1
+                p = 1
+            End If
+            
+            Loop Until Left = 0 And Right = 0 And Down = 0 And Up = 0
+            
+            If i >= 2 And p <> 1 Then
+            i = i - 1
+            End If
+        Loop Until i = 1
+    End If
+    q = 0
+    For s = 2602 To 2651
+        If BLK.Cells(s).Interior.ColorIndex = 23 Then
+            q = 1
+	    BLK.Cells(randomcell).Interior.ColorIndex = 3
+        End If
+    Next
+    count = count + 1
+Loop Until q = 1
+
+ActiveSheet.Cells(57 + r, 56).Value = r
+ActiveSheet.Cells(57 + r, 57).Value = count
+ActiveSheet.Cells(57 + r, 58).Value = count / 2500
+ActiveSheet.Cells(57 + r, 59).Value = Timer - stTimer
+
+Next
+
+ActiveSheet.Cells(57, 56).Value = "家览计"
+ActiveSheet.Cells(57, 57).Value = "簿埃翴计"
+ActiveSheet.Cells(57, 58).Value = "ち耞ふ回瞯"
+ActiveSheet.Cells(57, 59).Value = "禲祘Α丁"
+
+End Sub
